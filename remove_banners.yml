@@ -18,9 +18,3 @@
       ansible.builtin.file:
         path: /usr/local/etc/inc/authgui.inc
         state: absent
-
-- name: Restart GUI
-  hosts: firewalls
-  become: true
-    - name: Restart WebGUI
-      ansible.builtin.shell: /usr/local/etc/rc.restart_webgui
