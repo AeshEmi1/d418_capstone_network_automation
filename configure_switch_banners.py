@@ -25,12 +25,9 @@ class SwitchConfiguration:
         """Method for part C1. Returns VLANs as an array."""
         if self.switch_connection:
             # Run command to show vlans
-            banner = [
-                "configure banner before-login",
-                "WARNING: This system is monitored. Unauthorized acceess to this system is forbidden and will be prosecuted by law."
-            ]
+            banner = "WARNING: This system is monitored. Unauthorized acceess to this system is forbidden and will be prosecuted by law."
             self.switch_connection.send_command("enable cli prompting")
-            show_vlan = self.switch_connection.send_config_set(banner)
+            show_vlan = self.switch_connection.send_config_set("conf banner bef\n{banner}\n\n")
             self.switch_connection.save_config()
 def main():
     try:
@@ -50,7 +47,6 @@ def main():
             
             for switch in switches:
                 switch.set_banner()
-
 
     except Exception as e:
         print(f"Error reading the /etc/ansible/inventory/devices file. Does it exist? - {e}")
