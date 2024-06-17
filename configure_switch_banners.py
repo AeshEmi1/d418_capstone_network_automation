@@ -29,29 +29,25 @@ class SwitchConfiguration:
                 self.switch_connection.send_command("enable cli prompting")
                 show_vlan = self.switch_connection.send_config_set(f"conf banner bef\n{banner}\n\n\n")
                 self.switch_connection.save_config()
+                print(f"Banner configured on {self.switch_ip}")
         except:
-            print(f"Banner configured on {self.switch_ip}")
             pass
 def main():
-    try:
-        # Read Ansible inventory file
-        with open("/etc/ansible/inventory/devices", 'r') as f:
-            ansible_inventory = yaml.safe_load(f)
+    # Read Ansible inventory file
+    with open("/etc/ansible/inventory/devices", 'r') as f:
+        ansible_inventory = yaml.safe_load(f)
 
-            # Get switch ips and save them to an array
-            switch_ips = [host['ansible_host'] for host in ansible_inventory['switches']['hosts'].values()]
+        # Get switch ips and save them to an array
+        switch_ips = [host['ansible_host'] for host in ansible_inventory['switches']['hosts'].values()]
 
-            # Get the Switch's Credentials
-            username = ansible_inventory['switches']['vars']['ansible_user']
-            password = ansible_inventory['switches']['vars']['ansible_ssh_pass']
-            
-            # Create an array of SwitchConfiguration Objects
-            switches = [SwitchConfiguration(switch_ip, username, password) for switch_ip in switch_ips]
-            
-            for switch in switches:
-                switch.set_banner()
-
-    except Exception as e:
-        pass
+        # Get the Switch's Credentials
+        username = ansible_inventory['switches']['vars']['ansible_user']
+        password = ansible_inventory['switches']['vars']['ansible_ssh_pass']
+        
+        # Create an array of SwitchConfiguration Objects
+        switches = [SwitchConfiguration(switch_ip, username, password) for switch_ip in switch_ips]
+        
+        for switch in switches:
+            switch.set_banner()
     
 main()
