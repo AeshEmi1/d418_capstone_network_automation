@@ -27,7 +27,7 @@ class SwitchConfiguration:
             # Run command to show vlans
             banner = "WARNING: This system is monitored. Unauthorized acceess to this system is forbidden and will be prosecuted by law."
             self.switch_connection.send_command("enable cli prompting")
-            show_vlan = self.switch_connection.send_config_set("conf banner bef\n{banner}\n\n")
+            show_vlan = self.switch_connection.send_config_set(f"conf banner bef\n{banner}\n\n")
             self.switch_connection.save_config()
 def main():
     try:
