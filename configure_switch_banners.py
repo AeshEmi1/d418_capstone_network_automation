@@ -28,7 +28,8 @@ class SwitchConfiguration:
             banner = [
                 "configure banner",
                 "WARNING: This system is monitored. Unauthorized acceess to this system is forbidden and will be prosecuted by law.",
-                "\n"                
+                "\n",
+                "\n"         
             ]
             show_vlan = self.switch_connection.send_config_set(banner)
             self.switch_connection.save_config()
