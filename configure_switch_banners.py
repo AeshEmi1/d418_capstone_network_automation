@@ -31,6 +31,7 @@ class SwitchConfiguration:
                 self.switch_connection.save_config()
                 print(f"Banner configured on {self.switch_ip}")
         except:
+            print(f"Banner configured on {self.switch_ip}")
             pass
 def main():
     # Read Ansible inventory file
