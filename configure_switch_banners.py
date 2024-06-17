@@ -27,7 +27,7 @@ class SwitchConfiguration:
             if self.switch_connection:
                 banner = "WARNING: This system is monitored. Unauthorized acceess to this system is\nforbidden and will be prosecuted by law."
                 self.switch_connection.send_command("enable cli prompting")
-                show_vlan = self.switch_connection.send_config_set(f"conf banner bef\n{banner}\n\nsave\n")
+                show_vlan = self.switch_connection.send_config_set(f"conf banner bef\n{banner}\n\nsave")
         except:
             print(f"Banner configured on {self.host}")
             pass
