@@ -15,6 +15,7 @@
         path: /usr/local/opnsense/service/templates/OPNsense/Auth/motd
         state: absent
     - name: Remove the GUI banner from the firewalls
+      ansible.builtin.file:
         path: /usr/local/etc/inc/authgui.inc
         state: absent
     - name: restart webgui
