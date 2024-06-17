@@ -1,0 +1,21 @@
+---
+- name: Remove switch banners
+  hosts: switches
+  tasks:
+  - name: Remove the banner from the switch
+    community.network.exos_config:
+      commands: unconfigure banner
+
+- name: Remove Firewall Banners
+  hosts: firewalls
+  become: true
+  tasks:
+    - name: Remove the ssh banner from the firewalls
+      ansible.builtin.file:
+        file: /usr/local/opnsense/service/templates/OPNsense/Auth/motd
+        state: absent
+    - name: Remove the GUI banner from the firewalls
+        file: /usr/local/etc/inc/authgui.inc
+        state: absent
+    - name: restart webgui
+      ansible.builtin.shell: /usr/local/etc/rc.restart_webgui
