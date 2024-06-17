@@ -12,10 +12,10 @@
   tasks:
     - name: Remove the ssh banner from the firewalls
       ansible.builtin.file:
-        file: /usr/local/opnsense/service/templates/OPNsense/Auth/motd
+        path: /usr/local/opnsense/service/templates/OPNsense/Auth/motd
         state: absent
     - name: Remove the GUI banner from the firewalls
-        file: /usr/local/etc/inc/authgui.inc
+        path: /usr/local/etc/inc/authgui.inc
         state: absent
     - name: restart webgui
       ansible.builtin.shell: /usr/local/etc/rc.restart_webgui
