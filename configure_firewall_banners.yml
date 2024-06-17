@@ -1,0 +1,12 @@
+---
+- name: Configure Firewall Banners
+  hosts: firewalls
+  become: true
+  tasks:
+    - name: Configure ssh banner
+      ansible.builtin.shell: echo "WARNING: This system is monitored. Unauthorized acceess to this system is forbidden and will be prosecuted by law." > /usr/local/opnsense/service/templates/OPNsense/Auth/motd
+    - name: Configure gui banner
+      ansible.builtin.shell: "WARNING: This system is monitored. Unauthorized acceess to this system is forbidden and will be prosecuted by law." > /usr/local/etc/inc/authgui.inc
+    - name: restart webgui
+      ansible.builtin.shell: /usr/local/etc/rc.restart_webgui
+      
