@@ -48,6 +48,6 @@ def main():
                 switch.set_banner()
 
     except Exception as e:
-        print(f"Error reading the /etc/ansible/inventory/devices file. Does it exist? - {e}")
+        pass
     
 main()
