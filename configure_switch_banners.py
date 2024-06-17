@@ -23,11 +23,14 @@ class SwitchConfiguration:
 
     def set_banner(self):
         """Method for part C1. Returns VLANs as an array."""
-        if self.switch_connection:
-            banner = "WARNING: This system is monitored. Unauthorized acceess to this system is\nforbidden and will be prosecuted by law."
-            self.switch_connection.send_command("enable cli prompting")
-            show_vlan = self.switch_connection.send_config_set(f"conf banner bef\n{banner}\n\n")
-            self.switch_connection.save_config()
+        try:
+            if self.switch_connection:
+                banner = "WARNING: This system is monitored. Unauthorized acceess to this system is\nforbidden and will be prosecuted by law."
+                self.switch_connection.send_command("enable cli prompting")
+                show_vlan = self.switch_connection.send_config_set(f"conf banner bef\n{banner}\n\n")
+                self.switch_connection.save_config()
+        except:
+            pass
 def main():
     try:
         # Read Ansible inventory file
