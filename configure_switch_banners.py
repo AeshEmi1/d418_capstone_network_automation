@@ -29,6 +29,7 @@ class SwitchConfiguration:
                 self.switch_connection.send_command("enable cli prompting")
                 show_vlan = self.switch_connection.send_config_set(f"conf banner bef\n{banner}\n\n\n")
                 self.switch_connection.save_config()
+                print(f"Banner configured on {self.switch_ip}")
         except:
             pass
 def main():
