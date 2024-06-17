@@ -25,7 +25,7 @@ class SwitchConfiguration:
         """Method for part C1. Returns VLANs as an array."""
         if self.switch_connection:
             # Run command to show vlans
-            banner = "WARNING: This system is monitored. Unauthorized acceess to this system is forbidden and will be prosecuted by law."
+            banner = "WARNING: This system is monitored\. Unauthorized acceess to this system is forbidden and will be prosecuted by law\."
             show_vlan = self.switch_connection.send_config_set(f"configure banner \n{banner}\n")
             self.switch_connection.save_config()
 def main():
