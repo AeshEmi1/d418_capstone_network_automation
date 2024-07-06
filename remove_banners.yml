@@ -18,7 +18,7 @@
             -
               buffer: "WARNING: This system is monitored. Unauthorized acceess to this system is\nforbidden and will be prosecuted by law." 
               msg_type: "pre_admin-disclaimer-text"
-          name: "test"
+          name: "test1234567"
         state: "absent"
     - name: Configure post_login banner message
       fortinet.fortios.fortios_system_replacemsg_group:
@@ -27,7 +27,7 @@
             -
               buffer: "WARNING: This system is monitored. Unauthorized acceess to this system is\nforbidden and will be prosecuted by law." 
               msg_type: "post_admin-disclaimer-text"
-          name: "test"
+          name: "test123456"
         state: "absent"
     - name: Disable pre_login banner
       fortinet.fortios.fortios_system_global: 
