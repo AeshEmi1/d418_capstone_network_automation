@@ -39,8 +39,9 @@ firewall = {
 
 firewall_variables = {
     "ansible_connection":"httpapi",
-    "username":"admin",
-    "password":"P@ssw0rd"
+    "ansible_user":"admin",
+    "ansible_password":"P@ssw0rd",
+    "ansible_network_os":"fortinet.fortios.fortios"
 }
 
 # Create an array of each of the groups to pass into the ansible_format function
