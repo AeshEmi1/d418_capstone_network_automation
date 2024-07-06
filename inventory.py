@@ -4,13 +4,17 @@ import os
 # Create a dictionary of the Switch group
 switches = {
     "HQSwitch1":[
-        "10.100.0.33"
+        "10.100.0.33",
+        "HQSwitch1_BACKUP"
     ],
     "HQSwitch2":[
-        "10.100.0.34"
+        "10.100.0.34",
+        "HQSwitch2_BACKUP"
+
     ],
     "RemoteOfficeSwitch1":[
         "10.1.0.2",
+        "RemoteOfficeSwitch1_BACKUP"
     ]
 }
 
@@ -24,18 +28,19 @@ switch_variables = {
 # Create a dictionary of the firewalls
 firewall = {
     "HQFW":[
-        "10.0.0.1"
+        "10.0.0.1",
+        "HQFW_BACKUP"
     ],
     "RemoteOfficeFW":[
-        "10.1.0.1"
+        "10.1.0.1",
+        "RemoteOfficeFW_BACKUP"
     ]
 }
 
 firewall_variables = {
-    "ansible_connection":"ssh",
-    "ansible_user":"root",
-    "ansible_ssh_pass":"P@ssw0rd",
-    "ansible_become_password":"P@ssw0rd"
+    "ansible_connection":"httpapi",
+    "username":"admin",
+    "password":"P@ssw0rd"
 }
 
 # Create an array of each of the groups to pass into the ansible_format function
@@ -54,7 +59,8 @@ def ansible_format(device_groups):
     for device_group in device_groups:
         # The device variables
         device_variables = [
-            "ansible_host"
+            "ansible_host",
+            "backup_name"
         ]
 
         # Grab the device group name from the dictionary 
