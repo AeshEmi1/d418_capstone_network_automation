@@ -4,7 +4,9 @@
   tasks:
   - name: Remove the banner from the switch
     community.network.exos_config:
-      commands: ["unconfigure banner", "save"]
+      commands:
+        - unconfigure banner
+        - save
 
 - name: Remove Firewall Banners
   hosts: firewalls
