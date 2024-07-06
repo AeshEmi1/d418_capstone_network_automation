@@ -14,16 +14,14 @@
     - name: Unconfigure pre_login banner message
       fortinet.fortios.fortios_system_replacemsg_admin:
         system_replacemsg_admin:
-          -
-            buffer: ""
-            msg_type: "pre_admin-disclaimer-text"
+          buffer: ""
+          msg_type: "pre_admin-disclaimer-text"
         state: "present"
     - name: Configure post_login banner message
       fortinet.fortios.fortios_system_replacemsg_admin:
         system_replacemsg_admin:
-          -
-            buffer: "" 
-            msg_type: "post_admin-disclaimer-text"
+          buffer: "" 
+          msg_type: "post_admin-disclaimer-text"
         state: "present"
     - name: Disable pre_login banner
       fortinet.fortios.fortios_system_global: 
