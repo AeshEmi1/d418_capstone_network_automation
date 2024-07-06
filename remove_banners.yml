@@ -16,7 +16,7 @@
         system_replacemsg_group:
           admin:
             -
-              buffer: "" 
+              buffer: "test" 
               msg_type: "pre_admin-disclaimer-text"
           name: "test"
         state: "present"
@@ -25,7 +25,7 @@
         system_replacemsg_group:
           admin:
             -
-              buffer: "" 
+              buffer: "test" 
               msg_type: "post_admin-disclaimer-text"
           name: "test"
         state: "present"
