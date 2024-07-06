@@ -12,23 +12,19 @@
   hosts: firewalls
   tasks:
     - name: Unconfigure pre_login banner message
-      fortinet.fortios.fortios_system_replacemsg_group:
-        system_replacemsg_group:
-          admin:
-            -
-              buffer: "WARNING: This system is monitored. Unauthorized acceess to this system is\nforbidden and will be prosecuted by law." 
-              msg_type: "pre_admin-disclaimer-text"
-          name: "test1234567"
-        state: "absent"
+      fortinet.fortios.fortios_system_replacemsg_admin:
+        system_replacemsg_admin:
+          buffer: "" 
+          msg_type: "pre_admin-disclaimer-text"
+        state: "present"
+        version: "v7.0.9"
     - name: Configure post_login banner message
-      fortinet.fortios.fortios_system_replacemsg_group:
-        system_replacemsg_group:
-          admin:
-            -
-              buffer: "WARNING: This system is monitored. Unauthorized acceess to this system is\nforbidden and will be prosecuted by law." 
-              msg_type: "post_admin-disclaimer-text"
-          name: "test123456"
-        state: "absent"
+      fortinet.fortios.fortios_system_replacemsg_admin:
+        system_replacemsg_admin:
+          buffer: "" 
+          msg_type: "post_admin-disclaimer-text"
+        state: "present"
+        version: "v7.0.9"
     - name: Disable pre_login banner
       fortinet.fortios.fortios_system_global: 
         system_global:
