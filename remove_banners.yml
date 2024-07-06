@@ -17,14 +17,12 @@
           buffer: "" 
           msg_type: "pre_admin-disclaimer-text"
         state: "present"
-        version: "v7.0.9"
     - name: Configure post_login banner message
       fortinet.fortios.fortios_system_replacemsg_admin:
         system_replacemsg_admin:
           buffer: "" 
           msg_type: "post_admin-disclaimer-text"
         state: "present"
-        version: "v7.0.9"
     - name: Disable pre_login banner
       fortinet.fortios.fortios_system_global: 
         system_global:
