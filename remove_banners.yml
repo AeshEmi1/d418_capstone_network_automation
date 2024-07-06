@@ -8,13 +8,22 @@
 
 - name: Remove Firewall Banners
   hosts: firewalls
-  become: true
   tasks:
-    - name: Remove the ssh banner from the firewalls
-      ansible.builtin.file:
-        path: /usr/local/opnsense/service/templates/OPNsense/Auth/motd
-        state: absent
-    - name: Remove the GUI banner from the firewalls
-      ansible.builtin.file:
-        path: /usr/local/etc/inc/authgui.inc
-        state: absent
+    - name: Unconfigure pre_login banner message
+      fortinet.fortios.fortios_system_replacemsg_group:
+        system_replacemsg_group:
+          admin:
+            -
+              buffer: "" 
+              msg_type: "pre_admin-disclaimer-text"
+    - name: Configure post_login banner message
+      fortinet.fortios.fortios_system_replacemsg_group:
+        system_replacemsg_group:
+          admin:
+            -
+              buffer: "" 
+              msg_type: "post_admin-disclaimer-text"
+    - name: Disable pre_login banner
+      fortinet.fortios.fortios_system_global: 
+        system_global:
+          pre_login_banner: "disable"
