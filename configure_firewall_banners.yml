@@ -1,7 +1,6 @@
 ---
 - name: Configure Firewall Banners
   hosts: firewalls
-  become: true
   tasks:
     - name: Configure pre_login banner message
       fortinet.fortios.fortios_system_replacemsg_group:
