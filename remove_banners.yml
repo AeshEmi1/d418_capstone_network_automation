@@ -13,15 +13,15 @@
   tasks:
     - name: Unconfigure pre_login banner message
       fortinet.fortios.fortios_system_replacemsg_admin:
-        system_replacemsg_group:
+        system_replacemsg_admin:
           admin:
             -
-              buffer: "" 
+              buffer: ""
               msg_type: "pre_admin-disclaimer-text"
         state: "present"
     - name: Configure post_login banner message
       fortinet.fortios.fortios_system_replacemsg_admin:
-        system_replacemsg_group:
+        system_replacemsg_admin:
           admin:
             -
               buffer: "" 
