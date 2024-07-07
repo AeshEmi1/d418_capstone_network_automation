@@ -39,10 +39,9 @@ class SwitchConfiguration:
             if self.switch_connection:
                 self.switch_connection.send_config_set(f"unconfigure banner")
                 self.switch_connection.send_config_set(f"save")
+                print(f"Banner removed from {self.host}!")
         except:
-            self.switch_connection.save_config()
-            print(f"Banner configured on {self.host}")
-            pass
+            print("ERROR: Unexpected Error!")          
 
 class FortiGateConfiguration:
     def __init__(self, fortigate_ip, username, password):
@@ -79,10 +78,9 @@ class FortiGateConfiguration:
                 self.fortigate_connection.send_config_set("set pre-login-banner enable")
                 self.fortigate_connection.send_config_set("set post-login-banner enable")
                 self.fortigate_connection.send_config_set("end")
+                print(f"Banner configured on {self.host}!")
         except:
-            self.fortigate_connection.save_config()
-            print(f"Banner configured on {self.host}")
-            pass
+            print("ERROR: Unexpected Error!")          
     
     def remove_banner(self):
         """Sets banner for fortigates"""
@@ -98,10 +96,9 @@ class FortiGateConfiguration:
                 self.fortigate_connection.send_config_set("set pre-login-banner disable")
                 self.fortigate_connection.send_config_set("set post-login-banner disable")
                 self.fortigate_connection.send_config_set("end")
+                print(f"Banner removed from {self.host}!")
         except:
-            self.fortigate_connection.save_config()
-            print(f"Banner removed on {self.host}")
-            pass
+            print("ERROR: Unexpected Error!")          
 
 def main():
     parser = argparse.ArgumentParser(description="Script to configure and remove banners on switches and firewalls.")
