@@ -23,16 +23,15 @@ class SwitchConfiguration:
 
     def set_banner(self):
         """Sets banner for switches"""
-        try:
-            if self.switch_connection:
+        if self.switch_connection:
+            try:
                 banner = "WARNING: This system is monitored. Unauthorized acceess to this system is\nforbidden and will be prosecuted by law."
                 self.switch_connection.send_command("enable cli prompting")
                 self.switch_connection.send_config_set(f"conf banner bef\n{banner}\n\nsave")
+            except:
                 self.switch_connection.save_config()
-        except:
-            self.switch_connection.save_config()
-            print(f"Banner configured on {self.host}")
-            pass
+                print(f"Banner configured on {self.host}")
+                pass
 
     def remove_banner(self):
         """Sets banner for switches"""
