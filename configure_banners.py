@@ -95,7 +95,7 @@ def main():
         password = ansible_inventory['firewalls']['vars']['ansible_password']
         
         # Create an array of FortiGateConfiguration Objects
-        firewall = [FortiGateConfiguration(fortigate_ip, username, password) for fortigate_ip in fortigate_ips]
+        firewalls = [FortiGateConfiguration(fortigate_ip, username, password) for fortigate_ip in fortigate_ips]
         
         for switch in switches:
             switch.set_banner()
