@@ -92,7 +92,7 @@ def main():
 
         # Get the Switch's Credentials
         username = ansible_inventory['firewalls']['vars']['ansible_user']
-        password = ansible_inventory['firewalls']['vars']['ansible_ssh_pass']
+        password = ansible_inventory['firewalls']['vars']['ansible_pass']
         
         # Create an array of FortiGateConfiguration Objects
         switches = [FortiGateConfiguration(fortigate_ip, username, password) for fortigate_ip in fortigate_ips]
