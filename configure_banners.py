@@ -113,7 +113,7 @@ def main():
         print("ERROR: Please only select one option. --configure or --remove.")
         exit(1)
     elif not args.remove and not args.configure:
-        print("ERROR: Please select one option. --configure or --remove.")\
+        print("ERROR: Please select one option. --configure or --remove.")
         exit(1)
 
     # Read Ansible inventory file
