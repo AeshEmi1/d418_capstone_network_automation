@@ -8,12 +8,7 @@
       backup_options:
         filename: "{{ ansible_date_time.date }}-{{ backup_name }}"
         dir_path: /home/student/backups/switches
-    register: SwitchConfiguration
-  - name: Save switch configuration
-    copy:
-      content: "{{ SwitchConfiguration.meta.raw }}"
-      dest: "/home/student/backups/switches{{ ansible_date_time.date }}-{{ backup_name }}"
-        
+      
 
 - name: Export firewall configuration
   hosts: firewalls
