@@ -31,12 +31,10 @@ class SwitchConfiguration:
             try:
                 banner = "WARNING: This system is monitored. Unauthorized acceess to this system is\nforbidden and will be prosecuted by law."
                 self.switch_connection.send_command("enable cli prompting")
-                self.switch_connection.send_config_set(f"conf banner bef\n{banner}\n\n")
+                self.switch_connection.send_config_set(f"conf banner bef\n{banner}\n\nsave\ny\n\n")
             except:
-                print(f"Banner configured on {self.host}")
+                print(f"Banner configured on {self.host}!")
                 pass
-            self.remake_connection()
-            self.switch_connection.save_config()
 
     def remove_banner(self):
         """Sets banner for switches"""
