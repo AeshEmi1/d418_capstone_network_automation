@@ -36,7 +36,7 @@ class FortiGateConfiguration:
     def __init__(self, fortigate_ip, username, password):
         fortigate_dict = {
             "device_type": "fortinet",
-            "host": fortigate_ip
+            "host": fortigate_ip,
             "username": username,
             "password": password
         }
