@@ -56,7 +56,7 @@ class FortiGateConfiguration:
         """Sets banner for fortigates"""
         try:
             if self.fortigate_connection:
-                banner = "WARNING: This system is monitored. Unauthorized acceess to this system is\nforbidden and will be prosecuted by law."
+                banner = "WARNING: This system is monitored. Unauthorized acceess to this system is forbidden and will be prosecuted by law."
                 self.fortigate_connection.send_config_set("config system replacemsg admin pre_admin-disclaimer-text")
                 self.fortigate_connection.send_config_set(f'set buffer "{banner}"')
                 self.fortigate_connection.send_config_set(f"end")
