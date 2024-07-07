@@ -13,8 +13,14 @@
   hosts: firewalls
   tasks:
     - name: Backup firewall configuration
-      fortinet.fortios.fortios_system_config_backup_restore:
-        config: "system config backup"
-        filename: "/home/student/backups/firewalls/{{ ansible_date_time.date }}-{{ backup_name }}"
-        backup: "yes"
-        scope: "global"
+      fortinet.fortios.fortios_monitor:
+        fortios_monitor:
+          selector: "backup.system.config"
+          params:
+              scope: "global"
+          register: backupinfo
+    - name: Save firewall configuration
+        copy:
+          content: "{{ backupinfo.meta.raw }}"  
+          dest: "/home/student/backups/firewalls/{{ ansible_date_time.date }}-{{ backup_name }}"
+      
