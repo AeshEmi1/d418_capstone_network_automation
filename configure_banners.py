@@ -32,6 +32,18 @@ class SwitchConfiguration:
             self.switch_connection.save_config()
             print(f"Banner configured on {self.host}")
             pass
+
+    def remove_banner(self):
+        """Sets banner for switches"""
+        try:
+            if self.switch_connection:
+                self.switch_connection.send_config_set(f"unconfigure banner")
+                self.switch_connection.send_config_set(f"save")
+        except:
+            self.switch_connection.save_config()
+            print(f"Banner configured on {self.host}")
+            pass
+
 class FortiGateConfiguration:
     def __init__(self, fortigate_ip, username, password):
         fortigate_dict = {
@@ -59,20 +71,49 @@ class FortiGateConfiguration:
                 banner = "WARNING: This system is monitored. Unauthorized acceess to this system is forbidden and will be prosecuted by law."
                 self.fortigate_connection.send_config_set("config system replacemsg admin pre_admin-disclaimer-text")
                 self.fortigate_connection.send_config_set(f'set buffer "{banner}"')
-                self.fortigate_connection.send_config_set(f"end")
+                self.fortigate_connection.send_config_set("end")
                 self.fortigate_connection.send_config_set("config system replacemsg admin post_admin-disclaimer-text")
                 self.fortigate_connection.send_config_set(f'set buffer "{banner}"')
-                self.fortigate_connection.send_config_set(f"end")
-                self.fortigate_connection.send_config_set(f"config system global")
-                self.fortigate_connection.send_config_set(f"config pre-login-banner enable")
-                self.fortigate_connection.send_config_set(f"config post-login-banner enable")
-                self.fortigate_connection.send_config_set(f"end")
+                self.fortigate_connection.send_config_set("end")
+                self.fortigate_connection.send_config_set("config system global")
+                self.fortigate_connection.send_config_set("set pre-login-banner enable")
+                self.fortigate_connection.send_config_set("set post-login-banner enable")
+                self.fortigate_connection.send_config_set("end")
         except:
             self.fortigate_connection.save_config()
             print(f"Banner configured on {self.host}")
             pass
+    
+    def remove_banner(self):
+        """Sets banner for fortigates"""
+        try:
+            if self.fortigate_connection:
+                self.fortigate_connection.send_config_set("config system replacemsg admin pre_admin-disclaimer-text")
+                self.fortigate_connection.send_config_set("unset buffer")
+                self.fortigate_connection.send_config_set("end")
+                self.fortigate_connection.send_config_set("config system replacemsg admin post_admin-disclaimer-text")
+                self.fortigate_connection.send_config_set("unset buffer")
+                self.fortigate_connection.send_config_set("end")
+                self.fortigate_connection.send_config_set("config system global")
+                self.fortigate_connection.send_config_set("set pre-login-banner disable")
+                self.fortigate_connection.send_config_set("set post-login-banner disable")
+                self.fortigate_connection.send_config_set("end")
+        except:
+            self.fortigate_connection.save_config()
+            print(f"Banner removed on {self.host}")
+            pass
 
 def main():
+    parser = argparse.ArgumentParser(description="Script to configure and remove banners on switches and firewalls.")
+    parser.add_argument('--configure', action='store_true', help='Configure banners')
+    parser.add_argument('--remove', action='store_true', help='Remove banners')
+    args = parser.parse_args()
+
+    if args.remove and args.configure:
+        print("ERROR: Please only select one option. --configure or --remove.")
+    elif not args.remove and not args.configure:
+        print("ERROR: Please select one option. --configure or --remove.")
+
     # Read Ansible inventory file
     with open("/etc/ansible/inventory/devices", 'r') as f:
         ansible_inventory = yaml.safe_load(f)
@@ -97,10 +138,17 @@ def main():
         # Create an array of FortiGateConfiguration Objects
         firewalls = [FortiGateConfiguration(fortigate_ip, username, password) for fortigate_ip in fortigate_ips]
         
-        for switch in switches:
-            switch.set_banner()
-        
-        for firewall in firewalls:
-            firewall.set_banner()
-    
+        if args.configure:
+            for switch in switches:
+                switch.set_banner()
+            for firewall in firewalls:
+                firewall.set_banner()
+        elif args.remove:
+            for switch in switches:
+                switch.remove_banner()
+            for firewall in firewalls:
+                firewall.remove_banner()
+        else:
+            print("ERROR: Unexpected Error!")          
+
 main()
