@@ -14,11 +14,10 @@
   tasks:
     - name: Backup firewall configuration
       fortinet.fortios.fortios_monitor:
-        fortios_monitor:
-          selector: "backup.system.config"
-          params:
-              scope: "global"
-          register: backupinfo
+        selector: "backup.system.config"
+        params:
+            scope: "global"
+        register: backupinfo
     - name: Save firewall configuration
       copy:
         content: "{{ backupinfo.meta.raw }}"  
