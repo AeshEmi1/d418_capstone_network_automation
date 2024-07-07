@@ -17,7 +17,6 @@
         selector: "backup.system.config"
         params:
             scope: "global"
-        register: backupinfo
     - name: Save firewall configuration
       copy:
         content: "{{ backupinfo.meta.raw }}"  
