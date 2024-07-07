@@ -5,6 +5,9 @@
   - name: Backup switch configuration 
     community.network.exos_config:
       backup: true
+      backup_options:
+        filename: "{{ ansible_date_time.date }}-{{ backup_name }}"
+        dir_path: /home/student/backups/switches
     register: SwitchConfiguration
   - name: Save switch configuration
     copy:
