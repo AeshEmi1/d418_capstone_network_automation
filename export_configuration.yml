@@ -6,7 +6,7 @@
     community.network.exos_config:
       backup: true
       backup_options:
-        filename: {{ ansible_date_time.date }}-{{ backup_name }}
+        filename: "{{ ansible_date_time.date }}"-"{{ backup_name }}""
         dir_path: /home/student/backups/switches
 
 - name: Export firewall configuration
@@ -15,6 +15,6 @@
     - name: Backup firewall configuration
       fortios_system_config_backup_restore:
         config: "system config backup"
-        filename: "/home/student/backups/firewalls/{{ ansible_date_time.date }}-{{ backup_name }}"
+        filename: "/home/student/backups/firewalls/"{{ ansible_date_time.date }}"-"{{ backup_name }}""
         backup: "yes"
         scope: "global"
