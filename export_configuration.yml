@@ -17,8 +17,9 @@
         selector: "backup.system.config"
         params:
             scope: "global"
+      register: configuration
     - name: Save firewall configuration
       copy:
-        content: "{{ backupinfo.meta.raw }}"  
+        content: "{{ configuration.meta.raw }}"  
         dest: "/home/student/backups/firewalls/{{ ansible_date_time.date }}-{{ backup_name }}"
       
