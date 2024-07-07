@@ -5,7 +5,7 @@ import argparse
 
 class SwitchConfiguration:
     def __init__(self, switch_ip, username, password):
-        switch_dict = {
+        self.switch_dict = {
             "device_type": "extreme_exos",
             "host": switch_ip,
             "username": username,
@@ -16,10 +16,14 @@ class SwitchConfiguration:
 
         # Connect to the switches
         try:
-            self.switch_connection = ConnectHandler(**switch_dict)
-            print(f"Connection successful to {switch_dict['host']}!")
+            self.switch_connection = ConnectHandler(**self.switch_dict)
+            print(f"Connection successful to {self.switch_dict['host']}!")
         except Exception as e:
             print(f"Connection failed! Maybe the switch is offline? - {e}")
+
+    def remake_connection(self):
+        self.switch_connection.disconnect()
+        self.switch_connection = ConnectHandler(**self.switch_dict)
 
     def set_banner(self):
         """Sets banner for switches"""
@@ -27,11 +31,12 @@ class SwitchConfiguration:
             try:
                 banner = "WARNING: This system is monitored. Unauthorized acceess to this system is\nforbidden and will be prosecuted by law."
                 self.switch_connection.send_command("enable cli prompting")
-                self.switch_connection.send_config_set(f"conf banner bef\n{banner}\n\nsave")
+                self.switch_connection.send_config_set(f"conf banner bef\n{banner}\n\n")
             except:
-                self.switch_connection.save_config()
                 print(f"Banner configured on {self.host}")
                 pass
+            self.remake_connection()
+            self.switch_connection.save_config()
 
     def remove_banner(self):
         """Sets banner for switches"""
