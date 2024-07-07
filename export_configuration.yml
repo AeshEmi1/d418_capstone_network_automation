@@ -13,7 +13,7 @@
   hosts: firewalls
   tasks:
     - name: Backup firewall configuration
-      fortios_system_config_backup_restore:
+      fortinet.fortios.fortios_system_config_backup_restore:
         config: "system config backup"
         filename: "/home/student/backups/firewalls/{{ ansible_date_time.date }}-{{ backup_name }}"
         backup: "yes"
