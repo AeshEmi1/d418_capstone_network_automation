@@ -111,8 +111,10 @@ def main():
 
     if args.remove and args.configure:
         print("ERROR: Please only select one option. --configure or --remove.")
+        exit(1)
     elif not args.remove and not args.configure:
-        print("ERROR: Please select one option. --configure or --remove.")
+        print("ERROR: Please select one option. --configure or --remove.")\
+        exit(1)
 
     # Read Ansible inventory file
     with open("/etc/ansible/inventory/devices", 'r') as f:
