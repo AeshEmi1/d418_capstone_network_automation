@@ -20,7 +20,7 @@
               scope: "global"
           register: backupinfo
     - name: Save firewall configuration
-        copy:
-          content: "{{ backupinfo.meta.raw }}"  
-          dest: "/home/student/backups/firewalls/{{ ansible_date_time.date }}-{{ backup_name }}"
+      copy:
+        content: "{{ backupinfo.meta.raw }}"  
+        dest: "/home/student/backups/firewalls/{{ ansible_date_time.date }}-{{ backup_name }}"
       
